@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useContactModal } from "@/context/ContactModalProvider";
 
 export default function ContactModal() {
@@ -13,6 +14,7 @@ export default function ContactModal() {
   });
 
   const [isSending, setIsSending] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,8 +23,17 @@ export default function ContactModal() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token); // Save the reCAPTCHA token
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA challenge.");
+      return;
+    }
 
     setIsSending(true);
     try {
@@ -33,12 +44,14 @@ export default function ContactModal() {
           name: formData.name,
           email: formData.email,
           message: formData.message,
+          "g-recaptcha-response": recaptchaToken, // Send reCAPTCHA token
         },
         "HdkzW4tSYGP4GCqb0" // Replace with your EmailJS User ID
       );
 
       alert("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
+      setRecaptchaToken(null); // Reset reCAPTCHA
       closeModal();
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -63,7 +76,7 @@ export default function ContactModal() {
             placeholder="Your Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded-lg "
+            className="w-full p-2 border rounded-lg"
             required
           />
           <input
@@ -84,10 +97,15 @@ export default function ContactModal() {
             className="w-full p-2 border rounded-lg"
             required
           />
+          {/* reCAPTCHA Widget */}
+          <ReCAPTCHA
+            sitekey="6LeDk5sqAAAAAFqRZ7VL5RW5sjqTXM_gJWGXJXxp" // Replace with your reCAPTCHA site key
+            onChange={handleRecaptchaChange}
+          />
           <button
             type="submit"
-            disabled={isSending}
-            className="w-full bg-emerald-500 text-white p-2 rounded-lg hover:bg-emerald-600 transition"
+            disabled={isSending || !recaptchaToken}
+            className="w-full bg-emerald-500 text-white p-2 rounded-lg hover:bg-emerald-600 transition disabled:bg-gray-400"
           >
             {isSending ? "Sending..." : "Send Message"}
           </button>

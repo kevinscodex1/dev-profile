@@ -77,7 +77,7 @@ const portfolioProjects = [
 
 export const ProjectsSection = () => {
   return (
-    <section className="pb-16 lg:py-24">
+    <section className="pb-16 lg:py-24" id="projects">
       <div className="container">
         <SectionHeader
           eyebrow="Real-world Results"
@@ -86,10 +86,11 @@ export const ProjectsSection = () => {
           continuous skill growth and development."
         />
         <div className="flex flex-col mt-10 md:mt-20 gap-20">
-          {portfolioProjects.map((project) => (
+          {portfolioProjects.map((project, projectIndex) => (
             <Card
               key={project.title}
-              className="pt-8 px-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20"
+              className="pt-8 px-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20 sticky"
+              style={{ top: `calc(64px + ${projectIndex * 40}px)` }}
             >
               <div
                 className="absolute inset-0 -z-10 opacity-5"
@@ -118,8 +119,12 @@ export const ProjectsSection = () => {
                       </li>
                     ))}
                   </ul>
-                  <a href={project.link}>
-                    <button className="bg-white text-gray-950 h-12 md:w-auto px-6 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="bg-white text-gray-950 h-12 md:w-auto px-6 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8 hover:font-extrabold">
                       <span>Github Repo Link</span>
                       <ArrowUpRightIcon className="size-4" />
                     </button>

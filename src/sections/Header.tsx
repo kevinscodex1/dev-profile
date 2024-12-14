@@ -5,14 +5,14 @@ export const Header = () => {
         <a href="#" className="nav-item">
           Home
         </a>
-        <a href="#" className="nav-item">
+        <a href="#projects" className="nav-item">
           Projects
         </a>
-        <a href="#" className="nav-item">
+        <a href="#about" className="nav-item">
           About
         </a>
         <a
-          href="#"
+          href="#contact"
           className="nav-item bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900"
         >
           Contact

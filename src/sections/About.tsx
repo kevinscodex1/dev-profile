@@ -1,3 +1,4 @@
+"use client";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import StarIcon from "@/assets/icons/star.svg";
@@ -9,40 +10,46 @@ import CssIcon from "@/assets/icons/css3.svg";
 import ReactIcon from "@/assets/icons/react.svg";
 import ChromeIcon from "@/assets/icons/chrome.svg";
 import GithubIcon from "@/assets/icons/github.svg";
-import { TechIcon } from "@/components/TechIcon";
 import SportsMmaIcon from "@mui/icons-material/SportsMma";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import LiveTvIcon from "@mui/icons-material/LiveTv";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolboxItems } from "@/components/ToolboxItems";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 
 const toolboxItems = [
   {
     title: "JavaScript",
     iconType: JavascriptIcon,
+    href: "https://www.w3schools.com/js/default.asp",
   },
   {
     title: "HTML5",
     iconType: HTMLIcon,
+    href: "https://www.w3schools.com/html/default.asp",
   },
   {
     title: "CSS3",
     iconType: CssIcon,
+    href: "https://www.w3schools.com/css/default.asp",
   },
   {
     title: "React",
     iconType: ReactIcon,
+    href: "https://vite.dev/",
   },
   {
     title: "Chrome",
     iconType: ChromeIcon,
+    href: "https://www.google.com/",
   },
   {
     title: "Github",
     iconType: GithubIcon,
+    href: "https://github.com/",
   },
 ];
 
@@ -96,8 +103,9 @@ const goals = [
 ];
 
 export const AboutSection = () => {
+  const constrainRef = useRef(null);
   return (
-    <div className="py-20">
+    <div className="py-20" id="about">
       <div className="container">
         <SectionHeader
           eyebrow="About Me"
@@ -112,7 +120,13 @@ export const AboutSection = () => {
                 description="A Monthly Personal Recommendation That Piqued My Interest and Made a Lasting Impact."
               />
               <div className="w-40 mx-auto mt-2 md:mt-0">
-                <Image src={bookImage} alt="Book Cover" />
+                <a
+                  href="https://jamesclear.com/atomic-habits"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image src={bookImage} alt="Book Cover" />
+                </a>
               </div>
             </Card>
             <Card className="h-[320px] md:col-span-3 lg:col-span-2">
@@ -122,11 +136,15 @@ export const AboutSection = () => {
                 efficient, and innovative web applications."
                 className=""
               />
-              <ToolboxItems items={toolboxItems} className="" />
+              <ToolboxItems
+                items={toolboxItems}
+                className=""
+                itemsWrapperClassName="animate-move-left [animation-duration:20s]"
+              />
               <ToolboxItems
                 items={toolboxItems}
                 className="mt-6"
-                itemsWrapperClassName=" -translate-x-1/2"
+                itemsWrapperClassName="animate-move-right [animation-duration:10s]"
               />
             </Card>
           </div>
@@ -137,21 +155,23 @@ export const AboutSection = () => {
                 description="My interest and hobbies outside of the Coding realm."
                 className="px-6 py-6"
               />
-              <div className="relative flex-1">
+              <div className="relative flex-1" ref={constrainRef}>
                 {hobbies.map((hobby) => (
-                  <div
+                  <motion.div
                     key={hobby.title}
                     className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-lg py-1.5 absolute"
                     style={{
                       left: hobby.left,
                       top: hobby.top,
                     }}
+                    drag
+                    dragConstraints={constrainRef}
                   >
                     <span className="font-medium text-gray-950">
                       {hobby.title}
                     </span>
                     <span className="text-gray-950">{hobby.emoji}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </Card>
@@ -160,38 +180,40 @@ export const AboutSection = () => {
                 title="Current Goals"
                 description="A curated set of tools and technologies I use to build scalable,
                 efficient, and innovative web applications."
-                className=""
+                className="pb-0"
               />
-              <ul className="p-4 mx-auto flex flex-col gap-3">
-                {goals.map((goal, index) => (
-                  <li key={index} className="flex items-center gap-4">
-                    {/* Circular Progress Bar */}
-                    <div className="relative w-10 h-10 flex items-center justify-center">
-                      {/* Outer Circle */}
-                      <div
-                        className="absolute w-full h-full rounded-full"
-                        style={{
-                          background: `conic-gradient(from 0deg, #10b981 ${goal.progress}%, #38bdf8 ${goal.progress}%, transparent 0)`,
-                        }}
-                        aria-hidden="true"
-                      ></div>
+              <div className="p-5" id="test">
+                <ul className=" mx-auto flex flex-col gap-3">
+                  {goals.map((goal, index) => (
+                    <li key={index} className="flex items-center gap-4">
+                      {/* Circular Progress Bar */}
+                      <div className="relative w-10 h-10 flex items-center justify-center">
+                        {/* Outer Circle */}
+                        <div
+                          className="absolute w-full h-full rounded-full"
+                          style={{
+                            background: `conic-gradient(from 0deg, #10b981 ${goal.progress}%, #38bdf8 ${goal.progress}%, transparent 0)`,
+                          }}
+                          aria-hidden="true"
+                        ></div>
 
-                      {/* Inner Circle */}
-                      <div className="absolute w-9 h-9 bg-gray-800 rounded-full"></div>
+                        {/* Inner Circle */}
+                        <div className="absolute w-9 h-9 bg-gray-800 rounded-full"></div>
 
-                      {/* Progress Text */}
-                      <span className="relative text-[10px] font-semibold text-white">
-                        {goal.progress}%
-                      </span>
-                    </div>
+                        {/* Progress Text */}
+                        <span className="relative text-[10px] font-semibold text-white">
+                          {goal.progress}%
+                        </span>
+                      </div>
 
-                    {/* Goal Text */}
-                    <p className="text-white text-sm md:text-base">
-                      {goal.text}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+                      {/* Goal Text */}
+                      <p className="text-white text-sm md:text-base">
+                        {goal.text}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Card>
           </div>
         </div>

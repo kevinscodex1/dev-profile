@@ -11,8 +11,11 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Created with the help of Frontend Tribe",
+  title: "Kevin's Codex",
+  description: "Your Page Description",
+  icons: {
+    icon: ["/favicon.ico?v=4"],
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={twMerge(
           inter.variable,

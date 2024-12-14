@@ -16,4 +16,12 @@
   .container {
     @apply lg:max-w-5xl;
   }
+
+  .mask-image {
+    @apply [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)];
+  }
+
+  .sky-text-gradient {
+    @apply bg-gradient-to-r from-emerald-300 to-sky-400 text-transparent bg-clip-text;
+  }
 }

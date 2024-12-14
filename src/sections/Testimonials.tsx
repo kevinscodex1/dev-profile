@@ -3,40 +3,81 @@ import memojiAvatar2 from "@/assets/images/memoji-avatar-2.png";
 import memojiAvatar3 from "@/assets/images/memoji-avatar-3.png";
 import memojiAvatar4 from "@/assets/images/memoji-avatar-4.png";
 import memojiAvatar5 from "@/assets/images/memoji-avatar-5.png";
+import { BulletList } from "@/components/BulletList";
+import { Card } from "@/components/Card";
+import { SectionHeader } from "@/components/SectionHeader";
+import {
+  CodeBracketIcon,
+  ComputerDesktopIcon,
+  ChartPieIcon,
+  CommandLineIcon,
+} from "@heroicons/react/24/solid";
 
-const testimonials = [
+const workExperiences = [
   {
-    name: "Alex Turner",
-    position: "Marketing Manager @ TechStartups",
-    text: "Alex was instrumental in transforming our website into a powerful marketing tool. His attention to detail and ability to understand our brand is exceptional. We're thrilled with the results!",
-    avatar: memojiAvatar1,
+    company: "COLLABERA TECHNOLOGIES",
+    position: "presently as a FULLSTACK SOFTWARE ENGINEER",
+    text: "Works with a cross-functional engineering team to design, build, and maintain a scalable and user-friendly application. Develops secure and robust features to ensure data integrity and system reliability. Continuously enhances the application's quality-of-life (QoL) features to optimize user efficiency. Identifies and implements solutions to improve performance, usability, and scalability.",
+    avatar: <CommandLineIcon />,
   },
   {
-    name: "Olivia Green",
-    position: "Head of Design @ GreenLeaf",
-    text: "Working with Alex was a pleasure. His expertise in frontend development brought our designs to life in a way we never imagined. The website has exceeded our expectations.",
-    avatar: memojiAvatar2,
+    company: "CoDev-(Complete Development)",
+    position: "as a MERN STACK ENGINEER",
+    text: "Built and maintained a sustainable learning web application. Designed and implemented key features, including learning objects, dashboard optimization, and a UI/UX revamp. Developed and integrated RESTful APIs to optimize data collection with the backend. Updated and overhauled deprecated packages and plugins to ensure system stability and performance.",
+    avatar: <ChartPieIcon />,
   },
   {
-    name: "Daniel White",
-    position: "CEO @ InnovateCo",
-    text: "Alex's ability to create seamless user experiences is unmatched. Our website has seen a significant increase in conversions since launching the new design. We couldn't be happier.",
-    avatar: memojiAvatar3,
+    company: "Synergyinfoconnect",
+    position: "as a FULLSTACK DEVELOPER",
+    text: "Overhauled the dashboard to enhance user experience and optimize functionality, while redesigning the app’s color scheme to ensure visual consistency and improved accessibility. Additionally, developed a comprehensive tutorial management feature to streamline content delivery, improve user onboarding, and provide a more intuitive learning experience.",
+    avatar: <ComputerDesktopIcon />,
   },
   {
-    name: "Emily Carter",
-    position: "Product Manager @ GlobalTech",
-    text: "Alex is a true frontend wizard. He took our complex product and transformed it into an intuitive and engaging user interface. We're already seeing positive feedback from our customers.",
-    avatar: memojiAvatar4,
-  },
-  {
-    name: "Michael Brown",
-    position: "Director of IT @ MegaCorp",
-    text: "Alex's work on our website has been nothing short of exceptional. He's a talented developer who is also a great communicator. We highly recommend him.",
-    avatar: memojiAvatar5,
+    company: "MassiveSuccess Merchandising",
+    position: "as a WEB DEVELOPER / IT SPECIALIST",
+    text: "Collaborated with cross-functional teams, including designers, product managers, and developers, to create high-quality products. Responsibilities included developing and maintaining web applications using React.js and related technologies, integrating APIs to ensure scalability and dynamic functionality, and streamlining the company's communication channels for improved efficiency.",
+    avatar: <CodeBracketIcon />,
   },
 ];
 
 export const TestimonialsSection = () => {
-  return <div>Testimonials Section</div>;
+  return (
+    <div className="py-16 lg:py-24">
+      <div className="container">
+        <SectionHeader
+          title="My Professional Journey"
+          eyebrow="Work Experience"
+          description="An overview of roles, projects, and achievements that have forged my professional journey and refined my skills"
+        />
+        <div className="mt-16 lg:mt-24 flex overflow-x-clip mask-image">
+          <div className="flex gap-8 flex-none">
+            {workExperiences.map((workExperience) => (
+              <Card
+                key={workExperience.company}
+                className="p-6 max-w-xs md:p-8 md:max-w-md"
+              >
+                <div className="flex gap-4 items-center">
+                  <div className="size-14 inline-flex text-emerald-500">
+                    {workExperience.avatar}
+                  </div>
+                  <div>
+                    <div className="lg:text-lg font-bold sky-text-gradient">
+                      {workExperience.company}
+                    </div>
+                    <div className="text-sm text-white/50">
+                      {workExperience.position}
+                    </div>
+                  </div>
+                </div>
+                <BulletList
+                  text={workExperience.text}
+                  className=" mt-4 text-sm md:text-base"
+                />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };

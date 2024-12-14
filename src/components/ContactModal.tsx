@@ -99,7 +99,7 @@ export default function ContactModal() {
           />
           {/* reCAPTCHA Widget */}
           <ReCAPTCHA
-            sitekey="6LeDk5sqAAAAAFqRZ7VL5RW5sjqTXM_gJWGXJXxp" // Replace with your reCAPTCHA site key
+            sitekey="6Leuv5sqAAAAAGe8HJcAhsmPkBPvWhM-7qjsPJZz" // Replace with your reCAPTCHA site key
             onChange={handleRecaptchaChange}
           />
           <button

@@ -12,7 +12,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "Kevin's Codex",
-  description: "Your Page Description",
+  description: "My Developer web profile deployed via vercel",
   icons: {
     icon: ["/favicon.ico?v=4"],
   },
